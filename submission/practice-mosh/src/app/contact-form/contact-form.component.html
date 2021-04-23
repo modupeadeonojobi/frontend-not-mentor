@@ -1,0 +1,47 @@
+<form class="container" #f="ngForm" (ngSubmit)="submit(f)">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" 
+            required 
+            ngModel 
+            name="firstName" 
+            #firstName="ngModel"
+            (change)="log(firstName)" 
+            id="firstName" 
+            class="form-control">
+        <div class="alert alert-danger" 
+        *ngIf="firstName.touched && !firstName.valid">First Name is required</div>
+    </div>
+    <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" ngModel name="comment" cols="30" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ngModel name="isSubscribed"> Subscribe to mailing list
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="contactMethod">Contact Method</label>
+        <select multiple ngModel name="contactMethod" id="contactMethod" class="form-control">
+            <option *ngFor="let method of contactMethods" [value]="method.id">{{ method.name}}</option>
+        </select>
+    </div>
+    <div class="radio" *ngFor="let method of contactMethods">
+        <label>
+            <input ngModel type="radio" name="contactMethod" [value]="method.id"> {{ method.name }}
+        </label>
+    </div>
+    <p>
+        {{f.value | json}}
+    </p>
+    <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+</form>
+
+
+<!--================================= Template driven form ===============================-->
+<!--  To use ngForm(to validate the whole form) and ngModel(to validate just a section of the form). 
+    - Import FormsModule on app.module 
+    - ngForm: Add the following to the form #f="ngForm" (ngSubmit)="submit(f)"
+    - ngModel: name="firstName" #firstName="ngModel"        
+-->

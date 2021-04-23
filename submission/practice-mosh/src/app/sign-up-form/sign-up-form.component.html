@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+    <div *ngIf="form.errors" class="alert alert-danger">The username or password is incorrect</div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            class="form-control">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" >
+           <div class="alert alert-danger" *ngIf="username.errors.required"> Username is required</div>
+           <div class="alert alert-danger" *ngIf="username.errors.minlength">Username should be minimum of 3</div>
+           <div class="alert alert-danger" *ngIf="username.errors.cannotContainSpace">Username cannot contain space</div>
+           <div class="alert alert-danger" *ngIf="username.errors.shouldBeUnique">Username is already taken</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+    </div>
+    <button class="btn btn-primary">Sign Up</button>
+</form>
+
+
+<!-- ================================= Reactive Forms ====================================== -->
+<!-- Import FormsModule and ReactiveFormsModules in app.module file.
+    - Import FormGroup and FormControl in the component ts file.
+    - Make an instance of a new form:
+            form = new FormGroup ({
+                username: new FormControl(),
+                password: new FormControl()
+            }); // note that if the key has hypen it becomes 'user-name' 
+    - Add [formGroup]="form" to the form itself.
+    - Add formControlName to the various input of the form e.g formControlName="username"
+-->

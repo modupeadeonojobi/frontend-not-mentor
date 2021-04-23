@@ -1,0 +1,24 @@
+<nav>
+    <ul class="pagination">
+        <li class="page-item" [ngClass]="{ disabled: currentPage === 0 }">
+            <a class="page-link" (click)="currentPage = currentPage - 1">Prev</a>
+        </li>
+        <ng-container *ngFor="let data of datas; let i = index">
+            <li class="page-item" [ngClass]="{ active: currentPage === i}" *ngIf="checkWindowIndex(i) ">
+                <a class="page-link" (click)="currentPage = i">{{ i + 1}}</a>
+            </li>
+        </ng-container>
+        <li class="page-item" [appAppClass]="{ disabled: currentPage === datas.length-1 }">
+            <a class="page-link" (click)="currentPage = currentPage + 1">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- 
+    Making you own custom directive called appAppClass and changing the propery from pagination.html 
+    The custome directive is should to replace [ngClass] directive in line 11: to disable
+-->
+<div class="container">
+    <h4 class="text-center">{{ datas[currentPage].title }}</h4>
+    <img [src]='datas[currentPage].imageUrl' alt="">
+</div>
