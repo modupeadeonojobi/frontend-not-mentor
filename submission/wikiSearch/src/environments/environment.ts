@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  wikiUrl: 'https://en.wikipedia.org/w/api.php',
 };
 
 /*
