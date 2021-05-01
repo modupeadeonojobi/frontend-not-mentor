@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-card-form',
@@ -8,22 +8,31 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class CardFormComponent implements OnInit {
 
-  cardForm!: FormGroup;
-  // ******************* ANOTHER WAY OF DOING IT ***************************************
-  // cardForm = new FormGroup({
-  //   name: new FormControl('', [Validators.required])
-  // })
+  cardForm = new FormGroup({
+    name: new FormControl('', [
+      Validators.required, Validators.minLength(3)
+    ]),
+    cardNumber: new FormControl('', [
+      Validators.required, Validators.minLength(16), Validators.maxLength(16)
+    ]),
+    expiration: new FormControl('', [
+      Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)
+    ]),
+    securityCode: new FormControl('', [
+      Validators.required, Validators.minLength(3), Validators.maxLength(3)
+    ])
+  })
 
-  constructor(private fb: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.cardForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]
-        // Validators.minLength(3)
-      ]
-    });
+    // this.cardForm = this.fb.group({
+    //   name: this.fb.control(['', [Validators.required, Validators.minLength(3)]
+    //   ])
+    // });
   }
 
-
-
+  onSubmit() {
+    console.log('form was submitted');
+  }
 }
