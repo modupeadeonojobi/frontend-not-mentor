@@ -1,6 +1,6 @@
 <form [formGroup]="mathForm">
     <div class="equation"> {{ a }} + {{ b }} = </div>
-    <input formControlName="answer">
+    <input appAnswerHighlight formControlName="answer">
     <!-- {{ mathForm.get('a').value }}
     {{ mathForm.controls.a.value }}
     {{ mathForm.value.a }} -->

@@ -47,15 +47,6 @@ export class EquationComponent implements OnInit {
       //   answer: this.randomNumber()
       // })
       // TO SET SOME VALUES IN THE FORM
-
-
-
-
-
-
-      this.mathForm.controls.a.setValue(this.randomNumber());
-      this.mathForm.controls.b.setValue(this.randomNumber());
-      this.mathForm.controls.answer.setValue('');
     });
   }
 
