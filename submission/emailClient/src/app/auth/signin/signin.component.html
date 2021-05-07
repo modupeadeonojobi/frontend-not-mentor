@@ -1,0 +1,18 @@
+<form class="ui form" [formGroup]="authForm">
+    <div class="field">
+        <label>Username</label>
+        <input type="text" formControlName="username">
+    </div>
+    <p>{{ authForm.controls.username.errors | json}}</p>
+    <div class="field">
+        <label>Password</label>
+        <input type="text" formControlName="password">
+    </div>
+    {{ authForm.get('password').errors | json }}
+    <div class="field">
+        <label>Confirm Password</label>
+        <input type="text" formControlName="confirmPassword">
+    </div>
+
+    <button class="ui button submit primary">Submit</button>
+</form>
