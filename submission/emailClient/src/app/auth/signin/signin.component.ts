@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(20)
     ]),
-    confirmPassword: new FormControl('', [
+    passwordConfirm: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(20)
@@ -36,6 +36,11 @@ export class SigninComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  authFormErrors() {
+    const { dirty, touched, errors } = this.authForm;
+    return dirty && touched && errors;
   }
 
 }

@@ -8,8 +8,8 @@ import { FormGroup, Validator } from "@angular/forms";
 export class MatchPassword implements Validator {
     validate(formGroup: FormGroup) {
 
-        const { password, confirmPassword } = formGroup.value
-        if (password === confirmPassword) {
+        const { password, passwordConfirm } = formGroup.value
+        if (password === passwordConfirm) {
             return null;
         } else {
             return { passwordsDontMatch: true }
