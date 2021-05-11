@@ -1,1 +1,19 @@
-<p>signup works!</p>
+<h2>Create an Account</h2>
+<form class="ui form" [formGroup]="authForm" (ngSubmit)="onSumbit()">
+    <app-input inputType="text" label="Username" [control]="authForm.get('username')"></app-input>
+    <app-input inputType="password" label="Password" [control]="authForm.get('password')"></app-input>
+    <app-input inputType="Password" label="Password Confirm" [control]="authForm.get('passwordConfirm')"></app-input>
+    <div *ngIf="authFormErrors()" class="ui red basic label">
+        <p *ngIf="authForm.errors.passwordsDontMatch">
+            Password and password Confirmation don't match
+        </p>
+    </div>
+    <div>
+        <button class="ui button submit primary">Submit</button>
+    </div>
+</form>
+
+<!-- {{ authForm.get('username').errors | json }}
+<!-- {{ authForm.get('password').errors | json }}
+<!-- {{ authForm.get('passwordConfirmation').errors | json }}
+{{ authForm.errors | json }} -->
