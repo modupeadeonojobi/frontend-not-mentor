@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="ui container">
+    <div class="ui secondary pointing menu">
+        <a routerLink="/" class="item">Angular Email</a>
+        <div class="right menu">
+            <a class="ui item" routerLink="/inbox" routerLinkActive="active">Inbox</a>
+            <a class="ui item" routerLink="/logout" routerLinkActive="active">Log Out</a>
+            <a class="ui item" routerLink="/" routerLinkActive="active">Log In</a>
+            <a class="ui item" routerLink="/signin" routerLinkActive="active">Sign In</a>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
