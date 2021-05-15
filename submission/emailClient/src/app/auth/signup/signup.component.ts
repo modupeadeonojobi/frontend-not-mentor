@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(20)
     ]),
-    passwordConfirm: new FormControl('', [
+    passwordConfirmation: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(20)
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
     return dirty && touched && errors;
   }
 
-  onSumbit() {
+  onSubmit() {
     if (this.authForm.invalid) {
       return;
     }
@@ -54,7 +54,6 @@ export class SignupComponent implements OnInit {
     this.authService.signup(this.authForm.value)
       .subscribe({
         next: () => {
-
         },
         error: (err) => {
           if (!err.status) {
