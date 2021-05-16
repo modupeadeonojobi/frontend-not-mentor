@@ -23,6 +23,11 @@ interface LogggedinResponse {
   username: string;
 }
 
+interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
 
 
 @Injectable({
@@ -42,8 +47,7 @@ export class AuthService {
   }
 
   signup(credentials: SignupCredentials) {
-    return this.http
-      .post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
+    return this.http.post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
       .pipe(
         tap(() => {
           this.loggedin$.next(true);
@@ -66,5 +70,13 @@ export class AuthService {
         this.loggedin$.next(false);
       })
     );
+  }
+
+  login(credentials: LoginCredentials) {
+    return this.http.post(`${this.rootUrl}/auth/signin`, credentials).pipe(
+      tap(() => {
+        this.loggedin$.next(true);
+      })
+    )
   }
 }
