@@ -2,9 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { HttpHeaders } from '@angular/common/http';
-
-
 
 
 interface usernameResponse {
@@ -20,6 +17,13 @@ interface SignupCredentials {
 interface SignupResponse {
   username: string;
 }
+
+interface LogggedinResponse {
+  authenticated: boolean;
+  username: string;
+}
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -48,11 +52,19 @@ export class AuthService {
   }
 
   checkAuth() {
-    return this.http.get(`${this.rootUrl}/auth/signedin`)
+    return this.http.get<LogggedinResponse>(`${this.rootUrl}/auth/signedin`)
       .pipe(
-        tap(resp => {
-          console.log(resp, 'eeeee')
+        tap(({ authenticated }) => {
+          this.loggedin$.next(authenticated);
         })
       )
+  }
+
+  logout() {
+    return this.http.post(`${this.rootUrl}/auth/signout`, {}).pipe(
+      tap(() => {
+        this.loggedin$.next(false);
+      })
+    );
   }
 }
