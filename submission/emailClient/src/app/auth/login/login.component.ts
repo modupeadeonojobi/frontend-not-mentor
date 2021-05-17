@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit {
       },
       error: ({ error }) => {
         if (error.username || error.password) {
-          this.authForm.setErrors({ Credentials: true });
+          this.authForm.setErrors({ credentials: true });
         }
-        if (!error.status) {
+        if (error.status) {
           this.authForm.setErrors({ noConnection: true });
         }
       }
