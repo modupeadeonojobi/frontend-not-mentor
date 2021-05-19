@@ -1,0 +1,12 @@
+<div class="ul called list">
+    <div class="item" *ngFor="let email of emails">
+        <div class="content">
+            <div class="header">
+                {{ email.subject }}
+            </div>
+            <p>
+                {{ email.from }}
+            </p>
+        </div>
+    </div>
+</div>
