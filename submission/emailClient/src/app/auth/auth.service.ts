@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -35,7 +36,7 @@ interface LoginCredentials {
 })
 export class AuthService {
 
-  rootUrl = 'https://api.angular-email.com';
+  rootUrl = environment.serverUrl;
   loggedin$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) { }

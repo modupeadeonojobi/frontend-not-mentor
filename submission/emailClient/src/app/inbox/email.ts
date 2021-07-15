@@ -1,3 +1,10 @@
+export interface EmailSummary {
+    id: string;
+    subject: string;
+    from: string;
+}
+
+
 export interface Email {
     id: string;
     subject: string;
@@ -6,3 +13,5 @@ export interface Email {
     from: string;
     html: string;
 }
+
+

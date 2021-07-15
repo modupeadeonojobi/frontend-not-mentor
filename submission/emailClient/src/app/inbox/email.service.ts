@@ -1,14 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Email } from './email';
-
-
-interface EmailSummary {
-  id: string;
-  subject: string;
-  from: string;
-}
-
+import { Email, EmailSummary } from './email';
+import { HttpClient } from '@angular/common/http';
+import { EMPTY } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
 
 
 @Injectable({
@@ -16,15 +12,23 @@ interface EmailSummary {
 })
 export class EmailService {
 
-  rootUrl = 'https://api.angular-email.com';
+  rootUrl = environment.serverUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private route: Router
+  ) { }
 
   getEmails() {
     return this.http.get<EmailSummary[]>(`${this.rootUrl}/emails`);
   }
 
   getEmail(id: string) {
-    return this.http.get<Email>(`${this.rootUrl}/emails/${id}`);
+    return this.http.get<Email>(`${this.rootUrl}/emails/${id}`).pipe(
+      catchError(() => {
+        this.route.navigateByUrl('/inbox/not-found');
+        return EMPTY;
+      })
+    )
   }
 }
