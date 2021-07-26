@@ -2,6 +2,6 @@
     <app-input [control]="emailForm.get('to')" label="To" inputType="email"></app-input>
     <app-input [control]="emailForm.get('from')" label="From" inputType="text"></app-input>
     <app-input [control]="emailForm.get('subject')" label="Subject" inputType="text"></app-input>
-    <app-input [control]="emailForm.get('text')" label="Content" inputType="text"></app-input>
+    <app-input controlType="textarea" [control]="emailForm.get('text')" label="Content"></app-input>
     <button class="ui button primary">Send</button>
 </form>

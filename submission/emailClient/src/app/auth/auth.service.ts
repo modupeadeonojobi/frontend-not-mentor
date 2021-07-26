@@ -19,6 +19,10 @@ interface SignupResponse {
   username: string;
 }
 
+interface SigninResponse {
+  username: string;
+}
+
 interface LogggedinResponse {
   authenticated: boolean;
   username: string;
@@ -38,6 +42,7 @@ export class AuthService {
 
   rootUrl = environment.serverUrl;
   loggedin$ = new BehaviorSubject(null);
+  username = '';
 
   constructor(private http: HttpClient) { }
 
@@ -50,8 +55,9 @@ export class AuthService {
   signup(credentials: SignupCredentials) {
     return this.http.post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
       .pipe(
-        tap(() => {
+        tap(({ username }) => {
           this.loggedin$.next(true);
+          this.username = username;
         })
       );
   }
@@ -59,8 +65,9 @@ export class AuthService {
   checkAuth() {
     return this.http.get<LogggedinResponse>(`${this.rootUrl}/auth/signedin`)
       .pipe(
-        tap(({ authenticated }) => {
+        tap(({ authenticated, username }) => {
           this.loggedin$.next(authenticated);
+          this.username = username;
         })
       )
   }
@@ -74,9 +81,10 @@ export class AuthService {
   }
 
   login(credentials: LoginCredentials) {
-    return this.http.post(`${this.rootUrl}/auth/signin`, credentials).pipe(
-      tap(() => {
+    return this.http.post<SigninResponse>(`${this.rootUrl}/auth/signin`, credentials).pipe(
+      tap(({ username }) => {
         this.loggedin$.next(true);
+        this.username = username;
       })
     )
   }
