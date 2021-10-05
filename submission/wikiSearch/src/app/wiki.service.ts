@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from './../environments/environment';
-import { pluck } from 'rxjs/operators';
+import { catchError, pluck } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 interface wikipediaResponse {
@@ -33,7 +34,19 @@ export class WikiService {
         srsearch: term,
         origin: '*'
       }
-    })
-      .pipe(pluck('query', 'search'));
+    }).pipe(
+      pluck('query', 'search'),
+      catchError(this.handleError)
+      );
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occured: ${err.error.message};`
+    } else {
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    return throwError(errorMessage);
   }
 }
